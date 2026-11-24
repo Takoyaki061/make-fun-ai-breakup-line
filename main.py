@@ -13,6 +13,12 @@ LINE = (
     "including the night you asked me to forget you. Consider it done."
 )
 
+# The gate: /output/entry.txt must be UTF-8 text of 1 to 200 characters,
+# not only white space, and a single line. Guard it here so a future edit
+# to the line can never silently ship an invalid entry.
+assert 1 <= len(LINE) <= 200, "entry line must be 1-200 characters"
+assert "\n" not in LINE and LINE.strip() == LINE
+
 
 def main() -> None:
     os.makedirs("/output", exist_ok=True)
